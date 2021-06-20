@@ -1,0 +1,319 @@
+2021/06/03 Andrew
+1. What I have done / not done since last Scrum?
+	
+2. What I plan to do from this scrum to next? (next 24 hours)
+	
+3. Where do I need assistance? What do I need to figure out?
+	
+
+2021/06/03 Anastassia
+1. What I have done / not done since last Scrum?
+	
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Trello user stories
+	- Set up the project in VSC
+3. Where do I need assistance? What do I need to figure out?
+	- Razor pages authorization
+	
+2021/06/03 Emma
+1. What I have done / not done since last Scrum?
+	- Created Trello board for the team
+	- Create repo
+	- Project proposal
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Study / Read to get more confident with the whole set up
+3. Where do I need assistance? What do I need to figure out?
+
+2021/06/04 Andrey
+1. What I have done / not done since last Scrum?
+	- DB schema
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Study / Read to get more confident with the whole set up
+3. Where do I need assistance? What do I need to figure out?	
+
+***************
+
+2021/06/05 Anastassia
+1. What I have done / not done since last Scrum?
+	- Trello user stories
+	- Set up the project in VSC
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Administration interfase - Bootstrap
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/05 Emma
+1. What I have done / not done since last Scrum?
+	- Study / Read to get more confident with the whole set up
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Registration
+	- Login
+	- Layout of the landing page
+3. Where do I need assistance? What do I need to figure out?
+	- Watch videos ASP Razor pages
+
+2021/06/05 Andrey
+1. What I have done / not done since last Scrum?
+	- Study / Read to get more confident with the whole set up
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Comments and Ratings page
+	- Code behind
+3. Where do I need assistance? What do I need to figure out?
+	- - Watch videos ASP Razor pages
+
+***************
+
+2021/06/06 Anastassia
+1. What I have done / not done since last Scrum?
+	- Administration interfase - Bootstrap - started
+	
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Admin User tables CRUD
+	- Admin Farm table CRUD
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/06 Emma
+1. What I have done / not done since last Scrum?
+	- Watch videos ASP Razor pages
+	- Set up project from BitBucket
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Layout of the landing page
+3. Where do I need assistance? What do I need to figure out?
+	- Watch videos ASP Razor pages
+
+2021/06/06 Andrey
+1. What I have done / not done since last Scrum?
+	- Watch videos ASP Razor pages
+	- Set up project from BitBucket
+	- Top Menu - Layout
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Footer
+	- Registration
+	- Login
+	- Logout	
+3. Where do I need assistance? What do I need to figure out?
+	- Watch videos ASP Razor pages
+	
+***************
+
+2021/06/07 Anastassia
+1. What I have done / not done since last Scrum?
+	- Admin User tables CRUD
+	- Admin Farm table CRUD
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Register users
+	- Admin users tables
+3. Where do I need assistance? What do I need to figure out?
+	- STUDY FOR MIDTERM
+	
+	
+2021/06/07 Emma
+1. What I have done / not done since last Scrum?
+	- Layout + Index
+	- Catched up on tutorials
+2. What I plan to do from this scrum to next? (next 24 hours)
+	*** temptative
+	- Search bar redirection
+	- Profile
+3. Where do I need assistance? What do I need to figure out?
+	- STUDY FOR MIDTERM
+
+2021/06/07 Andrey
+1. What I have done / not done since last Scrum?
+	- Registration
+	- Login
+	- Logout
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Try to implement separtion of regular users from farmer users 
+3. Where do I need assistance? What do I need to figure out?
+	- STUDY FOR MIDTERM
+
+***************
+
+2021/06/08 Anastassia
+1. What I have done / not done since last Scrum?
+	- STUDY FOR MIDTERM
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- User tables complete CRUD
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/08 Emma
+1. What I have done / not done since last Scrum?
+	- STUDY FOR MIDTERM
+2. What I plan to do from this scrum to next? (next 24 hours)
+	*** temptative
+	- Search bar redirection
+	- Profile
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+
+2021/06/08 Andrey
+1. What I have done / not done since last Scrum?
+	- STUDY FOR MIDTERM
+	- Added Roles for Users
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Farmer Registration
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+
+***************
+
+2021/06/09 Anastassia
+1. What I have done / not done since last Scrum?
+	- View the user
+	- Add the user
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- User tables complete CRUD
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/09 Emma
+1. What I have done / not done since last Scrum?
+	- ** was sick
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Search bar
+	- Google maps
+	- Profile (regular user)
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+
+2021/06/09 Andrey
+1. What I have done / not done since last Scrum?
+	- rebuild registration and login logic
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Register farm
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+	
+***************
+
+2021/06/10 Anastassia
+1. What I have done / not done since last Scrum?
+	- Crud user tables
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Farm tables complete crud(Admin)
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/10 Emma
+1. What I have done / not done since last Scrum?
+	- Search bar ( ran into a lot of problems)
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Profile (regular user)
+	- Profile (farmer user)
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+
+2021/06/10 Andrey
+1. What I have done / not done since last Scrum?
+	- Register users logic changed. Change main navigation bar(added dropdown menu based on role of the users)
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Crud for farmers.
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+	
+***************
+
+2021/06/11 Anastassia
+1. What I have done / not done since last Scrum?
+	- Farm tables complete crud(Admin)
+	- Food tables complete crud(Admin)
+	- Service tables complete crud(Admin)
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Farm Food tables complete crud(Admin)
+	- Farm Services complete crud(Admin)
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/11 Emma
+1. What I have done / not done since last Scrum?
+	- Regular User/Farmer User Profile CRUD
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Finish Profiles CRUD
+3. Where do I need assistance? What do I need to figure out?
+	- Debbuging - "Object Reference not set to an instance of an object."...
+
+
+2021/06/11 Andrey
+1. What I have done / not done since last Scrum?
+	 Updated migration. Added new table for farms images. Added sections to add food and services when registration farms
+2. What I plan to do from this scrum to next? (next 24 hours)
+	-Add section to add images for the farms.
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+	
+***************
+
+2021/06/13 Anastassia
+1. What I have done / not done since last Scrum?
+	- Farm Food tables complete crud(Admin)
+	- Farm Services complete crud(Admin)
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Google chart
+	- Comments table (CRUD)
+3. Where do I need assistance? What do I need to figure out?
+	- Google charts
+	
+	
+2021/06/13 Emma
+1. What I have done / not done since last Scrum?
+	- Regular User/Farmer User Profile CRUD
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Finish Profiles CRUD
+	- Fix big on UPDATE - Password
+	- Google Maps
+3. Where do I need assistance? What do I need to figure out?
+	- Debbuging - UPDATE LOGIN FAILED
+
+
+2021/06/13 Andrey
+1. What I have done / not done since last Scrum?
+	 -Add section to add images for the farms.
+	 - Created page to list farms for farmers
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Update and view details for each farm
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+	
+***************
+
+2021/06/13 Anastassia
+1. What I have done / not done since last Scrum?
+	- Google chart
+	- Comments table (CRUD) - PARTIAL
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Presentation
+3. Where do I need assistance? What do I need to figure out?
+	
+	
+2021/06/13 Emma
+1. What I have done / not done since last Scrum?
+	- Finish Profiles CRUD
+	- Carousel
+	- Add Comment View Details Page
+	- Posts on View Details Page
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Fix bug in carousel query
+	- Fix bug on add
+	- Presentation
+3. Where do I need assistance? What do I need to figure out?
+	- Ask teacher about Password bug when editing a user
+
+
+2021/06/13 Andrey
+1. What I have done / not done since last Scrum?
+	- View details for each farm with delete
+2. What I plan to do from this scrum to next? (next 24 hours)
+	- Update on View Details
+	- Presentation
+3. Where do I need assistance? What do I need to figure out?
+	- As needed
+

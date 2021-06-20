@@ -1,0 +1,170 @@
+﻿@page 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@model MyFarmer.Pages.Admin.FarmsModel
+@{
+    ViewData["Title"] = "AdminFarmsView";
+}
+
+<div class="container-fluid">
+    <div class="row mb-5">
+
+        <div class="col-12 text-center">
+            <h1 class="mb-4">Farm List</h1>
+            <div>
+                <input class="form-control mb-4" type="text" id="farmInput" onkeyup="farmFunction()"
+                    placeholder="Search for Farm Name">
+            </div>
+            <div class="table-responsive table-striped">
+                <table class="table" id="farmTable">
+                    <thead class="bg-info text-white" style="position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th>Farm Id</th>
+                            <th>Farmer Name</th>
+                            <th>Farm</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var farm in Model.FarmList)
+                        {
+                            <tr>
+                                <td>@farm.Id</td>
+                                <td>@farm.Farmer.UserName</td>
+                                <td>@farm.Name</td>
+                                <td>@farm.Email</td>
+                                <td>@farm.Phone</td>
+                                <td>@farm.Address</td>
+                                <td>@farm.Description</td>
+                                <form action="" method="POST">
+                                    <td><input type="submit" asp-route-id="@farm.Id" value="View Detais"></td>
+                                </form>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+             <a class="btn btn-info mt-4 btn-lg" asp-area="" asp-page="/Admin/Index">
+            Back to Admin Interface</a>
+        </div>
+
+         <div class="col-12 my-5">
+            @if (Model.Message != null)
+            {
+                <div class="alert alert-primary">
+                    @Model.Message
+                </div>
+            }
+            <div class="card mb-5">
+                <div class="card-body mb-5">
+                    <h4 class="text-center">Farm Details</h4>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.FarmId"></label>
+                            <input asp-for="Input.FarmId" class="form-control" disabled />
+                            <span asp-validation-for="Input.FarmId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Farmer"></label>
+                            <select asp-for="Input.Farmer.UserName" class="form-control">
+                                @foreach (var f in Model.FarmersList)
+                                {
+                                    <option>@f.UserName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Name"></label>
+                            <input asp-for="Input.Name" class="form-control" />
+                            <span asp-validation-for="Input.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Phone"></label>
+                            <input asp-for="Input.Phone" class="form-control" />
+                            <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                        </div> 
+
+                         <div class="form-group">
+                            <label asp-for="Input.Address"></label>
+                            <input asp-for="Input.Address" class="form-control" />
+                            <span asp-validation-for="Input.Address" class="text-danger"></span>
+                        </div> 
+
+                         <div class="form-group">
+                            <label asp-for="Input.Description"></label>
+                            <input asp-for="Input.Description" class="form-control" />
+                            <span asp-validation-for="Input.Description" class="text-danger"></span>
+                        </div> 
+                      
+                        
+                        @if (Model.Input.FarmId < 1)
+                        {
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="AddFarm">Add</button>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="UpdateFarm"
+                                asp-route-id="@Model.Input.FarmId">Update</button>
+                                <button type="submit" class="btn btn-danger btn-lg" asp-page="/Admin/DeleteFarm"
+                                asp-route-id="@Model.Input.FarmId" asp-route-id="@Model.Input.Name">Delete</button>
+                            </div>
+
+                        }
+                    </form>
+                    <form method="GET">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="ClearForm">Clear
+                                Form</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+       
+
+    </div>
+</div>
+
+
+<script>
+    function farmFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("farmInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("farmTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

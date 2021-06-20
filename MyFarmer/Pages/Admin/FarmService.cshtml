@@ -1,0 +1,143 @@
+﻿@page
+@model MyFarmer.Pages.Admin.FarmServiceModel
+@{
+    ViewData["Title"] = "AdminFarmServiceView";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            @if (Model.Message != null)
+            {
+                <div class="alert alert-primary">
+                    @Model.Message
+                </div>
+            }
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-center">Farm Service Details</h4>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.FarmServiceId"></label>
+                            <input asp-for="Input.FarmServiceId" class="form-control" disabled />
+                            <span asp-validation-for="Input.FarmServiceId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.FarmName">Farm Name</label>
+                            <select asp-for="Input.FarmName" class="form-control">
+                                @foreach (var f in Model.FarmList)
+                                {
+                                    <option>@f.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.ServiceDescription">Farm Service</label>
+                            <select asp-for="Input.ServiceDescription" class="form-control">
+                                @foreach (var s in Model.ServiceList)
+                                {
+                                    <option>@s.Description</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Comments"></label>
+                            <input asp-for="Input.Comments" class="form-control" />
+                            <span asp-validation-for="Input.Comments" class="text-danger"></span>
+                        </div>
+
+                        @if (@Model.Input.FarmServiceId < 1)
+                        {
+                            <button type="submit" class="btn btn-info btn-lg mr-4"
+                            asp-page-handler="AddFarmService">Add</button>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="UpdateFarmService"
+                                asp-route-id="@Model.Input.FarmServiceId">Update</button>
+                                <button type="submit" class="btn btn-danger btn-lg" asp-page="/Admin/DeleteFarmService" asp-route-id="@Model.Input.FarmServiceId" asp-route-name="@Model.Input.FarmName" asp-route-description="@Model.Input.ServiceDescription" >Delete</button>
+                            </div>
+
+                        }
+                    </form>
+                    <form method="GET">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="ClearForm">Clear
+                                Form</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-8 text-center">
+            <h3 class="mb-4">Farm Service List</h3>
+            <div>
+                <input class="form-control mb-4" type="text" id="farmServiceInput" onkeyup="myFunction()"
+                    placeholder="Search for Farm">
+            </div>
+            <div class="table-responsive table-striped">
+                <table class="table" id="farmServiceTable">
+                    <thead class="bg-info text-white" style="position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th>Farm Service Id</th>
+                            <th>Farm Name</th>
+                            <th>Farm Service</th>
+                            <th>Comments</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fs in Model.FarmServiceList)
+                        {
+                            <tr>
+                                <td>@fs.Id</td>
+                                <td>@fs.Farm.Name</td>
+                                <td>@fs.FarmService.Description</td>
+                                <td>@fs.Comments</td>
+                                <form method="POST" asp-page-handler="OnPost">
+                                    <td><input type="submit" asp-route-id="@fs.Id" value="View Detais"></td>
+                                </form>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <a class="btn btn-info mt-4 btn-lg" asp-area="" asp-page="/Admin/Index">
+                Back to Admin Interface</a>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("serviceInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("serviceTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

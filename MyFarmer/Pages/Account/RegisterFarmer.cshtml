@@ -1,0 +1,50 @@
+﻿@page "{email}"
+@model MyFriends2.Pages.RegisterFarmerModel
+@{
+    ViewData["Title"] = "Register a Farmer";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <form method="post">
+            <h4>Create a Farm</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+             <div class="form-group">
+                <label asp-for="NewFarm.Name"></label>
+                <input asp-for="NewFarm.Name" class="form-control" />
+                <span asp-validation-for="NewFarm.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewFarm.Email"></label>
+                <input asp-for="NewFarm.Email" class="form-control" />
+                <span asp-validation-for="NewFarm.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewFarm.Phone"></label>
+                <input asp-for="NewFarm.Phone" class="form-control" />
+                <span asp-validation-for="NewFarm.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewFarm.Address"></label>
+                <input asp-for="NewFarm.Address" class="form-control" />
+                <span asp-validation-for="NewFarm.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewFarm.Description"></label>
+                <textarea asp-for="NewFarm.Description" class="form-control" rows="8"></textarea>
+                <span asp-validation-for="NewFarm.Description" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register Farm</button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

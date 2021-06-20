@@ -1,0 +1,22 @@
+﻿@page
+@model MyFarmer.Pages.SearchResultModel
+@{
+    ViewData["Title"] = "Search Result";
+}
+
+<div class="container">
+    <h2 class="search-header">Results for: <span class="h3"><mark>@Model.keywords</mark></span></h2>
+    <hr>
+
+    @* @Html.ValidationSummary(false, "", new { @class = "text-danger" }) *@
+
+    <div class="list-group">
+
+        @foreach (var farm in Model.FarmsList)
+        {
+            <a asp-page="/FarmDetails" asp-route-id="@farm.Id" class="list-group-item list-group-item-action">@farm.Address,
+                @farm.Name</a>
+        }
+    </div>
+
+</div>

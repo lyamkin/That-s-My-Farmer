@@ -1,0 +1,167 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using System.Globalization
+@using MyFarmer.Models
+@inject UserManager<IdentityUser> userManager;
+@inject RoleManager<IdentityRole> roleManager;
+
+@model MyFarmer.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "AdminUsersView";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            @if (Model.Message != null)
+            {
+                <div class="alert alert-primary">
+                    @Model.Message
+                </div>
+            }
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-center">User Details</h4>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.UserId"></label>
+                            <input asp-for="Input.UserId" class="form-control" disabled />
+                            <span asp-validation-for="Input.UserId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.UserName"></label>
+                            <input asp-for="Input.UserName" class="form-control" />
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        @if (String.IsNullOrEmpty(Model.Input.UserId))
+                        {
+                            <div class="form-group">
+                                <label asp-for="Input.Password"></label>
+                                <input asp-for="Input.Password" class="form-control" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.ConfirmPassword"></label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="Input.Password" />
+                            <input type="hidden" asp-for="Input.ConfirmPassword" />
+                        }
+                        <div class="form-group">
+                            <label asp-for="Input.Role"></label>
+                            <select asp-for="Input.Role" class="form-control">
+                                @foreach (var r in Model.RolesList)
+                                {
+                                    <option>@r.ToString()</option>
+                                }
+                            </select>
+                        </div>
+                        @if (String.IsNullOrEmpty(Model.Input.UserId))
+                        {
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="AddUser">Add</button>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="UpdateUser"
+                                asp-route-id="@Model.Input.UserId">Update</button>
+                                <button type="submit" class="btn btn-danger btn-lg" asp-page="/Admin/DeleteUser"
+                                asp-route-id="@Model.Input.UserId">Delete</button>
+                            </div>
+
+                        }
+                    </form>
+                    <form method="GET">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="OnGet">Clear
+                                Form</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-8 text-center">
+            <h3 class="mb-4">User List</h3>
+            <div>
+                <input class="form-control mb-4" type="text" id="myInput" onkeyup="myFunction()"
+                    placeholder="Search for email">
+            </div>
+            <div class="table-responsive table-striped">
+                <table class="table" id="myTable">
+                    <thead class="bg-info text-white" style="position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>View</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.UserList)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    @{
+                                        string rolename = userManager.GetRolesAsync(user).Result.FirstOrDefault();
+                                    }
+                                    @rolename
+                                </td>
+                                <form method="POST" asp-page-handler="OnPost">
+                                    <td><input type="submit" asp-route-id="@user.Id" value="View Details"></td>
+                                </form>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+             <a class="btn btn-info mt-4 btn-lg" asp-area="" asp-page="/Admin/Index">
+            Back to Admin Interface</a>
+
+        </div>
+       
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

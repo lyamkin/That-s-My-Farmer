@@ -1,0 +1,209 @@
+﻿@page "{id:int}"
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@model MyFarmer.Pages.FarmDetailsModel
+@{
+    ViewData["Title"] = "Farm Details";
+    string Role = "";
+    if (signInManager.IsSignedIn(User))
+    {
+        var userName = User.Identity.Name;
+        var user = await userManager.FindByNameAsync(userName);
+        var roles = await userManager.GetRolesAsync(user);
+        //NOTIFICATION: Multiple roles are not supported.
+        foreach (var role in roles)
+        {
+            Role = role;
+        }
+    }
+}
+<div class="Container">
+    @if (Model.Message != null)
+    {
+        @if (Model.Message.Contains("error"))
+        {
+            <div>
+                <div class="alert alert-danger">
+                    @Model.Message
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>
+                <div class="alert alert-success">
+                    @Model.Message
+                </div>
+            </div>
+        }
+    }
+    <div id="indexCarousel" class="carousel slide" data-ride="carousel">
+
+        <div class="carousel-inner">
+            @foreach (var item in @Model.FarmsImages)
+            {
+                var photoPath = "/Uploads/" + @item.ImageName;
+                <div class="carousel-item active">
+                    <img class="d-block w-100 img-fluid" src="@photoPath" alt="First slide">
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev display-4" href="#indexCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#indexCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-9 mb-4">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <h4 class="card-title">@Model.InputFarm.Name</h4>
+                    <p class="h4">Rating: 4</p>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="font-weight-bold">Email: </span>@Model.InputFarm.Email
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">Phone: </span>@Model.InputFarm.Phone
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">Address:
+                            </span>@Model.InputFarm.Address</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Description:
+                            </span>@Model.InputFarm.Description</li>
+                    </ul>
+                </div>
+                @if (Role == "Farmer")
+                {
+                    <div class="card-footer">
+                        <a asp-page="/AddFarm" asp-route-id="@Model.InputFarm.FarmId" class="btn btn-primary">Edit</a>
+                        <a asp-page="/DeleteFarm" asp-route-id="@Model.InputFarm.FarmId" class="btn btn-danger">Delete</a>
+                    </div>
+                }
+            </div>
+            @if (Role == "User")
+            {
+                <form method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Post a Review for @Model.InputFarm.Name</h4>
+                        </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="InputReview.Message"></label>
+                                <textarea asp-for="InputReview.Message" class="form-control" cols="30" rows="5"></textarea>
+                                <span asp-validation-for="InputReview.Message" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="InputReview.Rating"></label>
+                                <input asp-for="InputReview.Rating" class="form-control" type="number" />
+                                <span asp-validation-for="InputReview.Rating" class="text-danger"></span>
+                            </div>
+                            <div class="btn-group">
+                                <button asp-page-handler="Review" type="submit" class="btn btn-primary btn-md mr-4">Post
+                                    Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+            <div class="card h-25 mt-4">
+                <div class="card-header">
+                    <h3 class="mt-2">Reviews</h3>
+                </div>
+
+                <div class="card-body overflow-auto">
+                    @if (@Model.custCommentsList.Any())
+                    {
+                        <div class="list-group">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start p-0 border-0">
+
+                                @foreach (var c in @Model.custCommentsList)
+                                {
+
+                                    @if (c.Farm.Id == @Model.InputFarm.FarmId)
+                                    {
+                                        <div class="border mb-1 p-2">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">@c.Customer.UserName</h5>
+                                                <small>Post Created On: @c.Created</small>
+                                            </div>
+                                            <p class="mt-2 mb-1">@c.Message</p>
+                                            <div class="d-flex w-100 justify-content-between mt-3">
+                                                <small>Rating: @c.Rating/5</small>
+                                                <small>Farm: @c.Farm.Name</small>
+                                            </div>
+                                            @if (Role == "User")
+                                            {
+                                                @if (c.Customer.UserName == User.Identity.Name)
+                                                {
+
+                                                    <div class="d-inline d-flex justify-content-between mt-3">
+                                                        <a asp-page="/Account/EditPost" asp-route-id="@c.Id" class="btn btn-sm btn-primary"
+                                        role="button">Edit</a>
+                                                        <a asp-page="/Account/DeletePost" asp-route-id="@c.Id" class="btn btn-sm btn-danger"
+                                        role="button">Delete Post</a>
+                                                    </div>
+                                                }
+
+
+                                            }
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center mt-5">
+                            <h4 class="text-warning">This farm does not have any post yet. Be the first to leave a review!
+                            </h4>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <p class="h4">Farms food</p>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in @Model.FarmsFoods)
+                        {
+                            if (item.IsChecked == true)
+                            {
+                                <li class="list-group-item">@item.FarmFood.Description</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <p class="h4">Farms services</p>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in @Model.FarmsServices)
+                        {
+                            if (item.IsChecked == true)
+                            {
+                                <li class="list-group-item">@item.FarmService.Description</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

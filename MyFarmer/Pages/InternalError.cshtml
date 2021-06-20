@@ -1,0 +1,18 @@
+﻿@page
+@model MyFriends2.Pages.InternalErrorModel
+@{
+    ViewData["Title"] = "Internal error";
+}
+<div class="container">
+    @if (Model.Message != null)
+    {
+        <div>
+            <div class="alert alert-success">
+                @Model.Message
+            </div>
+        </div>
+    }
+    <p>Internal Error. Please contact with administrator
+        <a class="nav-link" asp-area="" asp-page="/Index">Click to continue.</a>
+    </p>
+</div>

@@ -1,0 +1,28 @@
+﻿@page "{id:int}"
+@model MyFarmer.Pages.DeleteFarmModel
+@{
+    ViewData["Title"] = "Delete Farm";
+}
+<div class="container">
+    <div class="row">  
+        <div class="col-md-6 offset-3">
+            <h4>Confirmation to delete the farm</h4>
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">Farm name: </span>@Model.MyFarm.Name
+                </div>
+                <div class="card-body">
+                    <p><span class="font-weight-bold">Email: </span>@Model.MyFarm.Email</p>
+                    <p><span class="font-weight-bold">Phone: </span>@Model.MyFarm.Phone</p>
+                    <p><span class="font-weight-bold">Address: </span>@Model.MyFarm.Address</p>
+                </div>
+                <div class="card-footer">
+                    <form method="post">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <a asp-page="/FarmDetails" asp-route-id="@Model.MyFarm.Id" class="btn btn-primary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

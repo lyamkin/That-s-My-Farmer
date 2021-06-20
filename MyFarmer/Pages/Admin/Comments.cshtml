@@ -1,0 +1,165 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@model MyFarmer.Pages.Admin.CommentsModel
+@{
+    ViewData["Title"] = "AdminCommentsView";
+}
+
+<div class="container-fluid">
+    <div class="row mb-5">
+
+        <div class="col-12 text-center">
+            <h1 class="mb-4">User Comments List</h1>
+            <div>
+                <input class="form-control mb-4" type="text" id="commentInput" onkeyup="commentFunction()"
+                    placeholder="Search for User Email">
+            </div>
+            <div class="table-responsive table-striped">
+                <table class="table" id="commentTable">
+                    <thead class="bg-info text-white" style="position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th>Comment Id</th>
+                            <th>User Email</th>
+                            <th>Farm Name</th>
+                            <th>Date</th>
+                            <th>Message</th>
+                            <th>Rating</th>
+                             <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.CommentList)
+                        {
+                            <tr>
+                                <td>@c.Id</td>
+                                <td>@c.Customer.Email</td>
+                                <td>@c.Farm.Name</td>
+                                <td>@c.Created.Date</td>
+                                <td>@c.Message</td>
+                                <td>@c.Rating</td>
+                                <form action="" method="POST">
+                                    <td><input type="submit" asp-route-id="@c.Id" value="View Detais"></td>
+                                </form>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+             <a class="btn btn-info mt-4 btn-lg" asp-area="" asp-page="/Admin/Index">
+            Back to Admin Interface</a>
+        </div>
+
+         <div class="col-12 my-5">
+            @if (Model.Message != null)
+            {
+                <div class="alert alert-primary">
+                    @Model.Message
+                </div>
+            }
+            <div class="card mb-5">
+                <div class="card-body mb-5">
+                    <h4 class="text-center">User Comment Details</h4>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.CommentId"></label>
+                            <input asp-for="Input.CommentId" class="form-control" disabled />
+                            <span asp-validation-for="Input.CommentId" class="text-danger"></span>
+                        </div>
+
+                         <div class="form-group">
+                            <label asp-for="Input.UserEmail"></label>
+                            <select asp-for="Input.UserEmail" class="form-control">
+                                @foreach (var u in Model.UserList)
+                                {
+                                    <option>@u.Email</option>
+                                }
+                            </select>
+                        </div>
+
+                         <div class="form-group">
+                            <label asp-for="Input.FarmName"></label>
+                            <select asp-for="Input.FarmName" class="form-control">
+                                @foreach (var f in Model.FarmList)
+                                {
+                                    <option>@f.Name</option>
+                                }
+                            </select>
+                        </div>
+                                           
+                        <div class="form-group">
+                            <label asp-for="Input.Date"></label>
+                            <input asp-for="Input.Date" class="form-control"/>
+                            <span asp-validation-for="Input.Date" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Message"></label>
+                            <input asp-for="Input.Message" class="form-control" />
+                            <span asp-validation-for="Input.Message" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Rating"></label>
+                            <input asp-for="Input.Rating" class="form-control" />
+                            <span asp-validation-for="Input.Rating" class="text-danger"></span>
+                        </div> 
+
+                          @if (Model.Input.CommentId < 1)
+                        {
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="AddComment">Add</button>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="UpdateComment"
+                                asp-route-id="@Model.Input.CommentId">Update</button>
+                                <button type="submit" class="btn btn-danger btn-lg" asp-page="/Admin/DeleteComment"
+                                asp-route-id="@Model.Input.CommentId">Delete</button>
+                            </div>
+
+                        }
+                    </form>
+                    <form method="GET">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-info btn-lg mr-4" asp-page-handler="ClearForm">Clear
+                                Form</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+       
+
+    </div>
+</div>
+
+
+<script>
+    function commentFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("commentInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("commentTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

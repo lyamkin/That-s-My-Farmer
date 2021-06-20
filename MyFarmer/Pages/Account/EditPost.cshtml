@@ -1,0 +1,55 @@
+﻿@page "{id}"
+@model MyFarmer.Pages.Account.EditPostModel
+@{
+    ViewData["Title"] = "Edit Post";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-warning profile-header">Edit My Post:</h1>
+    </div>
+
+    <div class="container d-flex justify-content-center mt-5" style="margin-bottom: 10rem !important;">
+        <div class="card w-75">
+            <div class="card-body">
+
+                <form method="POST">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="Input.postId" readonly>
+                    <p class="d-inline"><span class="mark">Posted By:</span> @Model.Input.Username</p>
+                    <p class="d-inline ml-3"><span class="mark">Created On:</span> @Model.Input.Created</p>
+                    <p class="d-inline ml-3"><span class="mark">Farm Name:</span> @Model.Input.FarmName</p>
+
+                    @* Posted By: <input class="text-muted" type="text" asp-for="User.Identity.Name" readonly>
+                        @* Farm Name: <input type="text" asp-for="Input.Farm.Name" readonly> *@
+                    @* <span class="ml-2">Created On: </span> <input class="text-muted" type="date"
+                        asp-for="Input.Created"
+                        readonly> *@
+
+                    <div class="form-group">
+                        <label asp-for="Input.Message"></label>
+                        <textarea asp-for="Input.Message" class="form-control" cols="30" rows="10"></textarea>
+                        @* <input asp-for="Input.Message" class="form-control" /> *@
+                        <span asp-validation-for="Input.Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Rating"></label>
+                        <input asp-for="Input.Rating" class="form-control" type="number" />
+                        <span asp-validation-for="Input.Rating" class="text-danger"></span>
+                    </div>
+
+                    <div class="btn-group">
+                        <a asp-page="/Account/UserProfile" class="btn btn-md btn-primary mr-4" role="button">Cancel</a>
+                        <button type="submit" class="btn btn-primary btn-md mr-4">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,36 @@
+﻿@page
+@model MyFriends2.Pages.FarmsListModel
+@{
+    ViewData["Title"] = "Farms List";
+}
+<div class="container">
+    <h4 class="my-4">Farms list for Farmer @Model.Farmer.UserName</h4>
+    @if (Model.Message != null)
+    {
+        <div>
+            <div class="alert alert-success">
+                @Model.Message
+            </div>
+        </div>
+    }
+    <div class="row">
+        @foreach (var farm in @Model.FarmList)
+        {
+            <div class="col-md-4">
+                <div class="card my-4">
+                    <div class="card-header">
+                        <span class="font-weight-bold">Farm name: </span>@farm.Name
+                    </div>
+                    <div class="card-body">
+                        <p><span class="font-weight-bold">Email: </span>@farm.Email</p>
+                        <p><span class="font-weight-bold">Phone: </span>@farm.Phone</p>
+                        <p><span class="font-weight-bold">Address: </span>@farm.Address</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-page="/FarmDetails" asp-route-id="@farm.Id" class="btn btn-primary">details → </a>
+                    </div>
+                </div>
+            </div>
+        }    
+    </div>
+</div>

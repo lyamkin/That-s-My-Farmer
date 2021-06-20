@@ -1,0 +1,113 @@
+﻿@page "{id:int?}"
+@model MyFriends2.Pages.AddFarmModel
+@{
+    ViewData["Title"] = "Add/Update new farm";
+}
+<div class="container mb-4">
+    <div class="row">
+    <div class="col-md-8 offset-2">
+        <form method="post" enctype="multipart/form-data">
+            @if(@Model.Id != null)
+            {
+                <h4>Update a farm @Model.InputsFarm.Name.</h4>
+            } else
+            {
+                <h4>Add a new farm.</h4>
+            }
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+             <div class="form-group">
+                <label asp-for="InputsFarm.Name"></label>
+                <input asp-for="InputsFarm.Name" class="form-control" />
+                <span asp-validation-for="InputsFarm.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputsFarm.Email"></label>
+                <input asp-for="InputsFarm.Email" class="form-control" />
+                <span asp-validation-for="InputsFarm.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputsFarm.Phone"></label>
+                <input asp-for="InputsFarm.Phone" class="form-control" />
+                <span asp-validation-for="InputsFarm.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputsFarm.Address"></label>
+                <input asp-for="InputsFarm.Address" class="form-control" />
+                <span asp-validation-for="InputsFarm.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputsFarm.Description"></label>
+                <textarea asp-for="InputsFarm.Description" class="form-control" rows="8"></textarea>
+                <span asp-validation-for="InputsFarm.Description" class="text-danger"></span>
+            </div>
+            <hr />
+            <div class="row">
+                @* Food options *@
+                <div class="col-md-6">
+                    <h4 class="my-4">Choose provided food</h4>
+                    @for (var i = 0; i < @Model.InputsFarmFoodList.Count(); i++)
+                    {
+                        <div class="form-check">
+                            <input type="hidden" asp-for="InputsFarmFoodList[i].Id" />
+                            <input type="hidden" asp-for="InputsFarmFoodList[i].Description" />
+                            <input asp-for="InputsFarmFoodList[i].IsChecked" class="form-check-input" />
+                            <label asp-for="InputsFarmFoodList[i].IsChecked" class="form-check-label">
+                                @Model.InputsFarmFoodList[i].Description
+                            </label>
+                        </div>
+                    }
+                </div>
+                @* Services options *@
+                <div class="col-md-6">
+                    <h4 class="my-4">Choose provided services</h4>
+                    @for (var i = 0; i < Model.InputsFarmServicesList.Count(); i++)
+                    {
+                        <div class="form-check">
+                            <input type="hidden" asp-for="InputsFarmServicesList[i].Id" />
+                            <input type="hidden" asp-for="InputsFarmServicesList[i].Description" />
+                            <input asp-for="InputsFarmServicesList[i].IsChecked" class="form-check-input" />
+                            <label asp-for="InputsFarmServicesList[i].IsChecked" class="form-check-label">
+                                @Model.InputsFarmServicesList[i].Description
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <hr />
+            
+            <h4 class="my-4">Upload images</h4>
+            <div class="form-group row">
+                <div class="col-12">
+                    <div class="custom-file">
+                        <input asp-for="Upload" class="custom-file-input form-control" />
+                        <label class="custom-file-label">Upload your picture</label>
+                    </div>
+                </div>
+                <span asp-validation-for="Upload" class="text-danger"></span>
+            </div>
+             @if(@Model.Id != null)
+            {
+                <button type="submit" class="btn btn-primary mt-4">Update Farm</button>
+            } else
+            {
+                <button type="submit" class="btn btn-primary mt-4">Add Farm</button>
+            }
+            
+        </form>
+    </div>
+</div>
+</div>
+
+
+@section Scripts {
+    <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                })
+            })
+        </script>
+    <partial name="_ValidationScriptsPartial" />
+}

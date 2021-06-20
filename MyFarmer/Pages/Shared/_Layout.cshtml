@@ -1,0 +1,271 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@{
+    string Role = "";
+    if (signInManager.IsSignedIn(User))
+    {
+        var userName = User.Identity.Name;
+        var user = await userManager.FindByNameAsync(userName);
+        var roles = await userManager.GetRolesAsync(user);
+        //NOTIFICATION: Multiple roles are not supported.
+        foreach (var role in roles)
+        {
+            Role = role;
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyFarmer</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-beige border-bottom box-shadow
+            mb-3 fixed-top">
+            <a class="navbar-brand" href="/Index"><img class="nav-logo" src="/logo/final-logo6.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_collapse"
+                aria-controls="navbar_collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar_collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-normal text-muted" href="/SearchResult">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-normal text-muted" href="/NotFound">Map</a>
+                    </li>
+
+
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        @if (Role == "User")
+                        {
+                            <li class="nav-item dropdown">
+                                <a href="#!" class="nav-link text-info font-weight-bold text-muted dropdown-toggle"
+                            id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                                    @User.Identity.Name</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/UserProfile">User Profile</a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/Logout">Logout</a>
+
+                                </div>
+                            </li>
+                        }
+                        else if (Role == "Farmer")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-info font-weight-bold text-muted dropdown-toggle"
+                            id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                                    @User.Identity.Name</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/UserProfile">Farmer Profile</a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/AddFarm">Add Farm</a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/FarmsList">Farms List</a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/Logout">Logout</a>
+                                </div>
+                            </li>
+                        }
+                        else if (Role == "Admin")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-info font-weight-bold text-muted dropdown-toggle"
+                            id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                                    @User.Identity.Name</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/Index">Admin Dashboard</a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/Logout">Logout</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-info font-weight-bold text-muted dropdown-toggle"
+                            id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                                    Undefined User</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-page="/Account/Logout">Logout</a>
+                                </div>
+                            </li>
+                        }
+
+
+                        @* <li class="nav-item">
+                            <a class="nav-link text-info font-weight-normal text-muted" asp-area=""
+                            asp-page="/Account/Profile">
+                            @User.Identity.Name</a>
+                            </li>
+                            <label>@Role</label>
+                            <li class="nav-item">
+                            <a class="nav-link text-info font-weight-normal text-muted" asp-area=""
+                            asp-page="/Account/Logout">
+                            Logout</a>
+                            </li> *@
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link font-weight-normal text-muted" href="/Account/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-weight-normal text-muted" href="/Account/Register">Register</a>
+                        </li>
+                    }
+
+                    <form class="form-inline ml-lg-3 mr-auto" method="GET">
+                        <input class="form-control form-control-sm mr-1" type="search" placeholder="Lookup a farm..."
+                            aria-label="Search" name="Keywords" asp-route-keywords="Keywords">
+                        @* value="@ViewData["Keywords"]" *@
+                        <button asp-page="/SearchResult"
+                            class="btn btn-sm btn-outline-success my-1 my-sm-0 nav-search z-depth-0" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </form>
+
+                    @* <form class="form-inline ml-lg-3 mr-auto">
+                        <input class="form-control form-control-sm mr-1" type="search" placeholder="Lookup a farm..."
+                        aria-label="Search" asp-route-keyword="Keywords">
+                        <button asp-page="/SearchResult"
+                        class="btn btn-sm btn-outline-success my-1 my-sm-0 nav-search z-depth-0" type="submit"><i
+                        class="fas fa-search"></i></button>
+                        </form> *@
+                    @* asp-action="SearchResult" asp-for="Keywords" *@
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container" style="margin-top: 13vh !important;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    @* <footer class="border-top footer text-muted bg-beige border-top box-shadow mt-3 fixed-bottom"> *@
+    <footer class="border-top footer text-muted bg-beige border-top box-shadow mt-3">
+        <div class="container text-center">
+            <a class="mr-4" asp-area="" asp-page="/Account/Login">Login</a>
+            <a class="mr-4" asp-area="" asp-page="/Account/Register">Register</a>
+            <a class="mr-4" asp-area="" asp-page="/SearchResult">Farms</a>
+            <br>
+            &copy; 2021 - That's My Farmer!
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+
+
+@*
+
+    =================== Navbar try outs ===================
+
+    <li class="nav-item align-middle pt-1">
+    <div class="input-group input-group-sm rounded bg-white search-group">
+    <input type="search" class="form-control rounded border-0" placeholder="Lookup a Farm..."
+    aria-label="Search" aria-describedby="search-addon" />
+    <span class="input-group-text border-0 bg-white" id="search-addon">
+    <i class="fas fa-search"></i>
+    </span>
+    </div>
+    </li>
+
+    =================== Navbar Andrey ===================
+
+    <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-beige border-bottom box-shadow
+    mb-3">
+    <div class="container">
+    <a class="navbar-brand" asp-area="" asp-page="/Index">MyFarmer logo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark text-uppercase" asp-area="" asp-page="/Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark text-uppercase" asp-area="" asp-page="/Index">About Us</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark text-uppercase" asp-area="" asp-page="/Index">Find your farmer</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark text-uppercase" asp-area="" asp-page="/Index">Become a partner</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark text-uppercase" asp-area="" asp-page="/Index">Contact us</a>
+    </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto">
+    @if (signInManager.IsSignedIn(User))
+
+    {
+    <li class="nav-item">
+    <a class="nav-link text-info d-inline" asp-area="" asp-page="/Profile">
+    @User.Identity.Name</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-info d-inline" asp-area="" asp-page="/Logout">
+    Logout</a>
+    </li>
+    }
+    else
+    {
+    <li class="nav-item">
+    <a class="nav-link text-info d-inline" asp-area="" asp-page="/Register">Register </a>
+    <span> or </span>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-info d-inline" asp-area="" asp-page="/Login"> Login </a>
+    </li>
+    }
+    </ul>
+    </div>
+    </div>
+    </nav>
+
+*@

@@ -1,0 +1,194 @@
+﻿@page
+@model MyFarmer.Account.Pages.UserProfileModel
+@{
+    ViewData["Title"] = "My Account";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@{
+    string Role = "";
+    if (signInManager.IsSignedIn(User))
+    {
+        var userName = User.Identity.Name;
+        var user = await userManager.FindByNameAsync(userName);
+        var roles = await userManager.GetRolesAsync(user);
+        //NOTIFICATION: Multiple roles are not supported.
+        foreach (var role in roles)
+        {
+            Role = role;
+        }
+    }
+
+}
+
+<div class="container text-center">
+    <h1 class="text-warning profile-header">Welcome to Your Dashboard,</h1>
+</div>
+
+
+@if (Model.Message != null)
+{
+    @if (Model.Message.Contains("error") || Model.Message.Contains("not found"))
+    {
+        <div>
+    <div class="alert alert-danger">
+        @Model.Message
+    </div>
+</div>
+    }
+    else
+    {
+        <div>
+    <div class="alert alert-success">
+        @Model.Message
+    </div>
+</div>
+    }
+}
+
+
+<div class="container px-4 mt-5">
+    <div class="row gx-5">
+
+        @if (Role == "User")
+        {
+
+            @* First col *@
+            <div class="col-md-4 col-sm-12">
+                <div class="p-1">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h3 class="mt-2 mb-3">My Info</h3>
+                            <input type="hidden" asp-for="currUser.Id">
+                            <p><span class="large mark">Username:</span> @Model.currUser.UserName</p>
+                            <p><span class="large mark">Email:</span> @Model.currUser.Email</p>
+                            <a asp-page="/Account/EditUser" asp-route-id="@Model.currUser.Id" class="btn btn-sm btn-primary"
+                            role="button">Edit</a>
+                            <a asp-page="/Account/DeleteUser" asp-route-id="@Model.currUser.Id"
+                            class="btn btn-sm btn-danger" role="button">Delete My Account</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="p-1">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h3 class="mt-2 mb-3">Change Password</h3>
+                            <input type="hidden" asp-for="currUser.Id">
+                            <a asp-page="/Account/ChangePassword" asp-route-id="@Model.currUser.Id"
+                            class="btn btn-sm btn-primary" role="button">Change My Password</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @* Second col *@
+            <div class="col-md-8 col-sm-12" style="height: 50vh !important;">
+
+                <div class="p-1 h-100">
+                    <div class="card h-100">
+                        <div class="card-body overflow-auto">
+                            <h3 class="mt-2 mb-3">My Posts</h3>
+                            @if (@Model.custCommentsList.Any())
+                            {
+                                <div class="list-group">
+                                    <div
+                                class="list-group-item list-group-item-action flex-column align-items-start p-0 border-0">
+
+                                        @foreach (var c in @Model.custCommentsList)
+                                        {
+
+                                            <div class="border mb-1 p-2">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">@c.Customer.UserName</h5>
+                                                    <small>Post Created On: @c.Created</small>
+                                                </div>
+                                                <p class="mt-2 mb-1">@c.Message</p>
+                                                <div class="d-flex w-100 justify-content-between mt-3">
+                                                    <small>Rating: @c.Rating/5</small>
+                                                    <small>Farm: @c.Farm.Name</small>
+                                                </div>
+                                                <div class="d-inline d-flex justify-content-between mt-3">
+                                                    <a asp-page="/Account/EditPost" asp-route-id="@c.Id"
+                                            class="btn btn-sm btn-primary" role="button">Edit</a>
+                                                    <a asp-page="/Account/DeletePost" asp-route-id="@c.Id"
+                                            class="btn btn-sm btn-danger" role="button">Delete Post</a>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center mt-5">
+                                    <h4 class="text-warning">You do not have any posts yet! </h4>
+                                    <p>
+                                        Click
+                                        <a asp-page="/SearchResult" class="" role="button">here</a> to visit
+                                        a farm and write your first review.
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+
+            @* First col *@
+            <div class="col-md-8 col-sm-12">
+                <div class="p-1">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h3 class="mt-2 mb-3">My Info</h3>
+                            <input type="hidden" asp-for="currUser.Id">
+                            <p><span class="large mark">Username:</span> @Model.currUser.UserName</p>
+                            <p><span class="large mark">Email:</span> @Model.currUser.Email</p>
+                            <div class="d-flex justify-content-between">
+                                <a asp-page="/Account/EditUser" asp-route-id="@Model.currUser.Id"
+                                class="btn btn-sm btn-primary" role="button">Edit</a>
+                                <a asp-page="/Account/DeleteUser" asp-route-id="@Model.currUser.Id"
+                                class="btn btn-sm btn-danger" role="button">Delete My Account</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            @* Second col *@
+            <div class="col-md-4 col-sm-12" style="height: 50vh !important;">
+
+                <div class="p-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mt-2 mb-3">Change Password</h3>
+                            <input type="hidden" asp-for="currUser.Id">
+                            <a asp-page="/Account/ChangePassword" asp-route-id="@Model.currUser.Id"
+                            class="btn btn-sm btn-primary" role="button">Change My Password</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+</div>

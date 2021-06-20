@@ -1,0 +1,70 @@
+﻿@page "{id}"
+@model MyFarmer.Pages.Account.DeleteUserModel
+@{
+    ViewData["Title"] = "Delete Account";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager;
+@inject UserManager<IdentityUser> userManager;
+@{
+    string Role = "";
+    if (signInManager.IsSignedIn(User))
+    {
+        var userName = User.Identity.Name;
+        var user = await userManager.FindByNameAsync(userName);
+        var roles = await userManager.GetRolesAsync(user);
+        //NOTIFICATION: Multiple roles are not supported.
+        foreach (var role in roles)
+        {
+            Role = role;
+        }
+    }
+
+}
+
+@if (Role == "User")
+{
+    <div class="container text-center">
+    <h1 class="text-danger profile-header">Delete My Account</h1>
+    <p class="note note-danger mt-2">
+        <strong>Note:</strong> This action will delete everything related to your account, including your reviews, and
+        it is <u>irreversible</u>!
+    </p>
+
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card w-50">
+            <div class="card-body">
+                <h5 class="card-title">Info:</h5>
+                <p><span class="large mark">Username:</span> @User.Identity.Name</p>
+                <p><span class="large mark">Email:</span> @Model.UserToDelete.Email</p>
+
+
+                <form asp-page-handler="DeleteUser">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <a asp-page="/Account/UserProfile" class="btn btn-md btn-primary mr-4" role="button">Cancel</a>
+                    <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+}
+else if (Role == "Farmer")
+{
+    <div class="container text-center">
+    <h1 class="text-danger profile-header">Delete My Account</h1>
+    <p class="note note-danger mt-2">
+        <strong>Note:</strong>For <u>security reasons</u>, farmers are not allowed to delete their account manually for
+        now.
+        This functionnality is coming soon!
+    </p>
+
+    <a asp-page="/Account/UserProfile" class="btn btn-md btn-primary mr-4" role="button">Back to Profile</a>
+</div>
+}
+
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

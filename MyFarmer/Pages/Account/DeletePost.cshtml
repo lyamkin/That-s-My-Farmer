@@ -1,0 +1,35 @@
+﻿@page "{id}"
+@model MyFarmer.Pages.Account.DeletePostModel
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<div class="container text-center">
+    <h1 class="text-danger profile-header">Delete My Post</h1>
+    <p class="note note-danger mt-2">
+        <strong>Note:</strong> This action is <u>irreversible</u>!
+    </p>
+
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card w-50">
+            <div class="card-body">
+                <h5 class="card-title">Post Info:</h5>
+                <p><span class="large mark">Written by:</span> @User.Identity.Name</p>
+                <p><span class="large mark">Comment:</span> @Model.PostToDelete.Message</p>
+                <p><span class="large mark">Comment:@Model.PostToDelete.Created</span></p>
+
+
+                <form asp-page-handler="DeletePost">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <a asp-page="/Account/UserProfile" class="btn btn-md btn-primary mr-4" role="button">Cancel</a>
+                    <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
