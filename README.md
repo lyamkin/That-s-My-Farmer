@@ -22,6 +22,9 @@ Open a terminal window and run these commands for DB migration :
 * dotnet ef migrations add CreateDatabase --output-dir Data/Migrations
 * dotnet ef database update
 
+* dotnet build
+* dotnet run
+
 You can open the DB in [DB Browser for SQLite](https://sqlitebrowser.org/) 🔗 and put in some seed data, but **I don't recommend you do it this way**. Instead, follow the next few steps.
 
 * Login as admin
