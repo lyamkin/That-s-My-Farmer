@@ -30,7 +30,7 @@ Open a terminal window and run these commands for DB migration :
 You can open the DB in [DB Browser for SQLite](https://sqlitebrowser.org/) 🔗 and put in some seed data, but **I don't recommend you do it this way**. Instead, follow the next few steps.
 
 * Login as admin
-  * Username: admin@admin.com
+  * Username: admin1@admin.com
   * Password: Admin123!
 * Add some data in services and food.
 * Logout and Register as a farmer.
