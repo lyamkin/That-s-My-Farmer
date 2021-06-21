@@ -3,6 +3,8 @@
 
 This is the final source code for the final ASP .NET Core project that was created for the purpose of the Developing ASP .NET Applications programming course, with professor [Gregory Prokopski](https://www.linkedin.com/in/prokopski/) 🔗.
 
+**Download the [demo video](https://github.com/emmadebarros/That-s-My-Farmer/tree/main/Demo%20Video) for a quick demonstration of the That's My Farmer! Web app prototype**
+
 Using the MS Visual Studio Code IDE, we created an ASP .NET Core/Razor Pages Web application that delivers dynamic content.  
 
 In this course, we learned about the fundamentals of Web application site implementation by using
@@ -63,3 +65,5 @@ You'll also find in this repository our DailyScrum folder, that demonstrates our
 If you're interested in seeing all of the team's commits and final presentation of the project, you can also take a look at our [Bitbucket repository](https://bitbucket.org/emma96/thats-my-farmer/src/master/) 🔗 and [Final Presentation PowerPoint](https://johnabbott-my.sharepoint.com/:p:/r/personal/6169535_johnabbottcollege_net/_layouts/15/Doc.aspx?sourcedoc=%7BFCA8168A-8008-41EF-8695-B6D676448DAE%7D&file=MyFarmerPresentation.pptx&wdOrigin=OFFICECOM-WEB.START.REC&ct=1624239955110&action=edit&mobileredirect=true) 🔗.
 
 You can find the ppt pdf [here](https://github.com/emmadebarros/That-s-My-Farmer/tree/main/Presentation) 🔗.
+
+**Download the [demo video](https://github.com/emmadebarros/That-s-My-Farmer/tree/main/Demo%20Video) for a quick demonstration of the That's My Farmer! Web app prototype**
