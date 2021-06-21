@@ -3,6 +3,8 @@
 
 This is the final source code for the final ASP .NET Core project that was created for the purpose of the Developing ASP .NET Applications programming course, with professor [Gregory Prokopski](https://www.linkedin.com/in/prokopski/) 🔗.
 
+Considering the short length of the course, we opted for a really simple design, and focused our energies on backend functionnalities.
+
 **Download the [demo video](https://github.com/emmadebarros/That-s-My-Farmer/tree/main/Demo%20Video) for a quick demonstration of the That's My Farmer! Web app prototype**
 
 Using the MS Visual Studio Code IDE, we created an ASP .NET Core/Razor Pages Web application that delivers dynamic content.  
