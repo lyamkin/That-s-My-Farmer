@@ -34,7 +34,7 @@ You can open the DB in [DB Browser for SQLite](https://sqlitebrowser.org/) 🔗 
 * Logout and Register as a farmer.
 * Head over to Add Farm, in the dropdown menu of the navbar, and add one or two farms.
 * Logout and Register as a regular user.
-* Login and explore the farms with the search bar and add write your first review!
+* Login and explore the farms with the search bar and write your first review!
 
 To experiment the use of authentication and authorization, that are implemented to make sure that a regular user can't access admin functionalities for example, try accessing /Admin as a regular user and /Account/EditUser without being signed in.
 
