@@ -54,9 +54,9 @@ To experiment the use of authentication and authorization, that are implemented 
 
 
 ## Contributors
-[Anastassia Titova](https://www.linkedin.com/in/anastassia-titova-204380202/) 🔗   
 [Andrey Lyamkin](https://www.linkedin.com/in/andreylyamkin/) 🔗   
-[myself, Emma De Barros](https://www.linkedin.com/in/emma-de-barros/) 🔗
+[Anastassia Titova](https://www.linkedin.com/in/anastassia-titova-204380202/) 🔗   
+[Emma De Barros](https://www.linkedin.com/in/emma-de-barros/) 🔗
 
 ## Resources
 
